@@ -18,10 +18,12 @@
 
 require 'active_support/inflector'
 require 'rails/engine'
-# Dir[File.join(RAILS_ROOT, 'vendor', 'plugins', '*')]
 
-fi = File.join(RAILS_ROOT,'db', 'schema.rb')
-s = File.open[fi]
+blue = File.expand_path('../', __FILE__)
+fil_e = File.join(blue, 'db/schema.rb')
+fi_le = File.join(blue, 'db/seeds.rb')
+s = File.open(fil_e)
+File.open(fi_le, 'w') {|file| file.truncate(0) }
 
 class_singular = ""
 
@@ -32,39 +34,18 @@ s.each do |line|
 		class_singular = classes.singularize.capitalize
 		p class_singular
 
-	end
-		if line.match(/(?<=\s\st.)[a-z]{1,13}/) == "string"
+		line.match(/(?<=\s\st.)[a-z]{1,13}/) == "string"
 			p "pickles"
 
-		end
-
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) ==
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) ==
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-	# if line.scan(/\s\s\s\s\s\s\st.[a-z]{1,13}/) == 
-
-
-# File.open('/Users/maktheresa/Desktop/projects/gem_test_post/db/seeds.rb', 'w') {|file| file.truncate(0) }
-File.open('/Users/maktheresa/Desktop/projects/gem_test_post/db/seeds.rb', 'w') { |file|
+File.open(fi_le, 'a') { |file|
   file.puts "User.destroy_all"
   file.puts "10.times do \n     " + 
   	class_singular + ".create!(username: Faker::Name.first_name)
 end"
-
-
-
 }
+		end
+
+
+
 
 end
